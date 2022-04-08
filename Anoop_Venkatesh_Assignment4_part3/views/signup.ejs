@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <%- include('layouts/header') %>
+  <body class="d-flex flex-column h-100">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand bg-light logo-spacing" href="/">
+          <img
+            src="./assets/drivetest-main-logo.png"
+            alt=""
+            width="100"
+            height="50"
+          />
+          <!-- https://drivetest.ca/wp-content/themes/drivetest/assets/images/drivetest-main-logo.png' -->
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/login"
+                >Login</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/signup"
+                >Signup</a
+              >
+            </li>
+          </ul>
+          <% if(typeof userID === 'undefined') {%>
+            <form class="d-flex">
+              <p class="text-dark p-0 m-0">WELCOME USER</p>
+            </form>
+            <%} %>
+            <% if(typeof userID !== 'undefined') {%>
+              <div class="d-flex">
+                <p class="text-dark p-0 m-0">Logout</p>
+            </div>
+              <%} %>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-shrink-0 mt-5">
+      <div class="container h-100 login-cover">
+        <div
+          class="row mt-5 py-5 d-flex justify-content-center align-items-center h-100"
+        >
+          <div class="col col-xl-10">
+            <div class="card" style="border-radius: 1rem">
+              <div class="row g-0">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                  <div class="card-body p-4 p-lg-5 text-black">
+
+                    <% if(errors != null && errors.length > 0){ %>
+                      <% for (var i = 0; i< errors.length; i++){ %>
+                    <h2 class="text-danger d-flex justify-content-center">
+                      <%= errors[i] %>
+                    </h2>
+                    <% } %>
+                    <% } %>
+
+                    <form action="/users/register" method="POST" enctype="multipart/form-data">
+                      <div class="d-flex align-items-center mb-3 pb-1">
+                        <span class="h1 fw-bold mb-0">Register</span>
+                      </div>
+                      <div class="form-outline mb-4">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Username"
+                          name="Username"
+                          id="Username"
+                          aria-label="Username"
+                        />
+                      </div>
+                      <div class="form-outline mb-4">
+                        <input
+                          type="password"
+                          class="form-control"
+                          placeholder="Password"
+                          name="Password"
+                          id="Password"
+                          aria-label="Password"
+                        />
+                      </div>
+                      <div class="form-outline mb-4">
+                        <input
+                          type="password"
+                          class="form-control"
+                          placeholder="Re-enter Password"
+                          name="ReenterPassword"
+                          id="ReenterPassword"
+                          aria-label="Email address"
+                        />
+                      </div>
+                      <div class="row form-outline">
+                        <div class="col-sm-12 col-md-8">
+                          <label
+                            class="visually-hidden"
+                            for="inlineFormSelectPref"
+                            >UserType:</label
+                          >
+                          <select
+                            class="form-select"
+                            id="Usertype"
+                            name="Usertype"
+                          >
+                            <option value="Driver">Driver</option>
+                            <option value="Examiner">Examiner</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Coordinator">Coordinator</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="pt-4 mb-4">
+                        <button
+                          class="btn btn-dark btn-lg btn-block"
+                          type="submit"
+                          value="submit"
+                        >
+                          Register
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('layouts/footer')%>
+  </body>
+</html>
+
+<!-- Student Name: ANOOP VENKATESH
+Student No: 8750864 -->

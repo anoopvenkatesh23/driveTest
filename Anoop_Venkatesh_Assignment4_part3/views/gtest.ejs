@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <%- include('layouts/header') %>
+  <body class="d-flex flex-column h-100">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand bg-light logo-spacing" href="/">
+            <img
+              src="./assets/drivetest-main-logo.png"
+              alt=""
+              width="100"
+              height="50"
+            />
+            <!-- https://drivetest.ca/wp-content/themes/drivetest/assets/images/drivetest-main-logo.png' -->
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/"
+                  >Dashboard</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/driver"
+                  >Driver</a
+                >
+              </li>
+              
+              <li class="nav-item d-flex">
+                <a class="nav-link active text-dark" aria-current="page" href="/logout"
+                >Logout</a
+                >
+              </li>
+
+            </ul>
+
+
+          </div>
+        </div>
+      </nav>
+    
+    </header>
+
+    <!-- <header><%- include('layouts/navbar') %></header> -->
+
+    <main class="flex-shrink-0 mt-5">
+      <div class="container h-100 login-cover">
+        <div
+          class="row mt-5 py-5 d-flex justify-content-center align-items-center h-100"
+        >
+          <div class="col col-xl-10">
+            <div class="card" style="border-radius: 1rem">
+              <div class="row g-0">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                  <div class="card-body p-4 p-lg-5 text-black">
+                    <form action="/gtest" method="post" enctype="application/x-www-form-urlencoded">
+                      <div class="d-flex align-items-center mb-3 pb-1">
+                        <span class="h1 fw-bold mb-0">Gtest</span>
+                      </div>
+                      <div class="form-outline mb-4">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="UID"
+                          placeholder="UID/License Number"
+                          aria-label="UIDLicenseNumber"
+                        />
+                      </div>
+
+                      <div class="d-flex mb-5">
+                        <button
+                          class="btn btn-dark btn-lg btn-block"
+                          type="submit"
+                          value="Submit"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% if(typeof userdata !== 'undefined') {%>
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem">
+                    <div class="d-flex justify-content-center mt-4 mb-3 pb-1">
+                      <span class="h1 fw-bold mb-0">G2Test Details</span>
+                    </div>
+                    <form action="/gtest/updated/<%= userdata._id %>" method="POST" enctype="application/x-www-form-urlencoded">
+                      
+                      <div class="row g-0">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                          <div class="card-body p-4 p-lg-5 text-black">
+                       
+                            <div class="form-outline mb-4">
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="FName"
+                                disabled
+                                value=<%= userdata.FName %>
+                                id="FName"
+                                aria-label="Firstname"
+                              />
+                            </div>
+                            <div class="form-outline mb-4">
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="LName"
+                                disabled
+                                value=<%= userdata.LName %>
+                                id="LName"
+                                aria-label="Lastname"
+                              />
+                            </div>
+                            <div class="form-outline mb-4">
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="UID"
+                                disabled
+                                value=<%= userdata.UID %>
+                                id="UID"
+                                aria-label="UID"
+                              />
+                            </div>
+                            <div class="form-outline mb-4">
+                              <input
+                                type="date"
+                                class="form-control"
+                                name="DOB"
+                                disabled
+                                value=<%= new Date(userdata.DOB).toLocaleDateString('en-CA') %> id="DOB"
+                                aria-label="DOB"
+                              />
+                            </div>
+      
+                            <div class="row">
+                              <div class="col-5 form-outline mb-4">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="HouseNumber"
+                                  value=<%= userdata.Address.HouseNumber %>
+                                  id="HouseNumber"
+                                  aria-label="House number"
+                                />
+                              </div>
+                              <div class="col-7 form-outline mb-4">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="Street"
+                                  value="<%= userdata.Address.Street %>"
+                                  id="Street"
+                                  aria-label="Street name"
+                                />
+                              </div>
+                            </div>
+      
+                            <div class="row form-outline mb-4">
+                              <div class="col-sm-12 col-md-6">
+                                <input
+                                type="text"
+                                class="form-control"
+                                name="Country"
+                                value="<%= userdata.Address.Country %>"
+                                id="Country"
+                                aria-label="Country name"
+                              />
+
+                              </div>
+                              <div class="col-sm-12 col-md-6">
+
+                                <input
+                                type="text"
+                                class="form-control"
+                                name="State"
+                                value="<%= userdata.Address.State %>"
+                                id="State"
+                                aria-label="State name"
+                              />
+                              </div>
+                            </div>
+      
+                            <div class="row">
+                              <div class="form-outline mb-4">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="Postalcode"
+                                  value="<%= userdata.Address.Postalcode %>"
+                                  id="Postalcode"
+                                  aria-label="Postal code"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+      
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                          <div class="card-body p-4 p-lg-5 text-black">
+                            <div class="row">
+                              <div class="col-sm-12 col-md-6 form-outline mb-4">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="Carmake"
+                                  value="<%= userdata.Cardetails.Carmake %>"
+                                  id="Carmake"
+                                  aria-label="Car make"
+                                />
+                              </div>
+                              <div class="col-sm-12 col-md-6 form-outline mb-4">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="Caryear"
+                                  value=<%= userdata.Cardetails.Caryear %>
+                                  id="Caryear"
+                                  aria-label="Car year"
+                                />
+                              </div>
+                            </div>
+      
+                            <div class="form-outline mb-4">
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="Carmodel"
+                                value="<%= userdata.Cardetails.Carmodel %>"
+                                id="Carmodel"
+                                aria-label="Car Model"
+                              />
+                            </div>
+      
+                            <div class="form-outline mb-4">
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="Platenumber"
+                                value="<%= userdata.Cardetails.Platenumber %>"
+                                id="Platenumber"
+                                aria-label="Plate number"
+                              />
+                            </div>
+                            <div class="form-outline mb-4">
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="LicenseNumber"
+                                disabled
+                                value="<%= userdata.LicenseNumber %>"
+                                id="LicenseNumber"
+                                aria-label="License Number"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-center mb-5">
+                        <button
+                          class="btn btn-dark btn-lg btn-block"
+                          type="submit"
+                          value="Submit"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+               </div>
+            <%} %>
+        </div>
+      
+
+      </div>
+
+    </main>
+
+    <%- include('layouts/footer')%>
+  </body>
+</html>
+
+<!-- Student Name: ANOOP VENKATESH
+Student No: 8750864 -->
+
+

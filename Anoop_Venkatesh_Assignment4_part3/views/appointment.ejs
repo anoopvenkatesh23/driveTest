@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <%- include('layouts/header') %>
+  <body class="d-flex flex-column h-100">
+
+    <header>
+      <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand bg-light logo-spacing" href="/">
+            <img
+              src="./assets/drivetest-main-logo.png"
+              alt=""
+              width="100"
+              height="50"
+            />
+            <!-- https://drivetest.ca/wp-content/themes/drivetest/assets/images/drivetest-main-logo.png' -->
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/"
+                  >Dashboard</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/admin"
+                  >Admin</a
+                >
+              </li>
+              
+              <li class="nav-item d-flex">
+                <a class="nav-link active text-dark" aria-current="page" href="/logout"
+                >Logout</a
+                >
+              </li>
+
+            </ul>
+
+
+          </div>
+        </div>
+      </nav>
+    
+    </header>
+
+    <!-- <header><%- include('layouts/navbar') %></header> -->
+
+    <main class="flex-shrink-0 mt-5">
+      <div class="container h-100 login-cover">
+        <div
+          class="row mt-5 py-5 d-flex justify-content-center align-items-center h-100"
+        >
+          <div class="col col-xl-10">
+            <div class="card" style="border-radius: 1rem">
+              <div class="d-flex justify-content-center mt-4 mb-3 pb-1">
+                <span class="h1 fw-bold mb-0">Appointment</span>
+              </div>
+
+              <% if(typeof displayerror !== 'undefined') {%>
+              <h2 class="text-danger d-flex justify-content-center">
+                <%= displayerror %>
+              </h2>
+              <%} %>
+
+
+
+              <% if(typeof apptDetails === 'undefined') {%>
+              <form action="/storeto/appointment" method="POST" enctype="multipart/form-data">
+                <div class="row g-0">
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="card-body p-4 p-lg-5 text-black">
+                        
+                          <div class="form-outline mb-4">
+                            <input
+                              type="date"
+                              class="form-control"
+                              placeholder="date"
+                              name="date"
+                              id="date"
+                              aria-label="date"
+                              required
+                              onchange="searchAppointment(event)"
+
+                            />
+                          </div>
+
+                          <div class="row" id="timeSlots">
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="9:00AM" value="9:00AM">
+
+                              <label class="form-check-label"  for="9:00AM">
+                                09:00AM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="9:30AM" value="9:30AM">
+
+                              <label class="form-check-label"  for="09:30AM">
+                                09:30AM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="10:00AM" value="10:00AM">
+
+                              <label class="form-check-label"  for="10:00AM">
+                                10:00AM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="10:30AM" value="10:30AM">
+
+                              <label class="form-check-label"  for="10:30AM">
+                                10:30AM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="11:00AM" value="11:00AM">
+
+                              <label class="form-check-label"  for="11:00AM">
+                                11:00AM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="11:30AM" value="11:30AM">
+
+                              <label class="form-check-label"  for="11:30AM">
+                                11:30AM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="12:00PM" value="12:00PM">
+
+                              <label class="form-check-label"  for="12:00PM">
+                                12:00PM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="12:30PM" value="12:30PM">
+
+                              <label class="form-check-label"  for="12:30PM">
+                                12:30PM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="1:00PM" value="1:00PM">
+
+                              <label class="form-check-label"  for="1:00PM">
+                                1:00PM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="1:30PM" value="1:30PM">
+
+                              <label class="form-check-label"  for="1:30PM">
+                                1:30PM
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="time" id="2:00PM" value="2:00PM">
+
+                              <label class="form-check-label"  for="2:00PM">
+                                2:00PM
+                              </label>
+                            </div>
+
+                          </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mb-5">
+                      <button
+                        class="btn btn-dark btn-lg btn-block"
+                        type="submit"
+                        value="Submit"
+                      >
+                        Submit
+                      </button>
+
+                      
+                    </div>
+                </div>
+              </form>
+              <%} %>
+              
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+
+    <%- include('layouts/footer')%>
+  </body>
+  <script>
+    // const div = document.getElementById("times");
+    async function searchAppointment(event) {
+      const times =["9:00AM","9:30AM","10:00AM","10:30AM","11:00AM","11:30AM","12:00PM","12:30PM","1:00PM","1:30PM","2:00PM"]
+      times.forEach((el) => {
+        const input = document.getElementById(el);
+        input.disabled = false
+      })
+      let slotTimes = [];
+      await fetch(`/getslots/g2test/${event.target.value}`, { method: "GET" })
+        .then((res) => res.json())
+        .then((data) => {
+          slotTimes = data;
+          console.log(slotTimes.slotTimes);
+        });
+
+      console.log(slotTimes.slotTimes, "slots");
+
+      slotTimes.slotTimes.forEach((time) => {
+        const id = '' + time.time
+        const input = document.getElementById(id);
+        console.log(id,input)
+        if(time.isTimeSlotAdded) {
+         input.disabled= true
+        }
+      });
+    }
+  </script>
+</html>
+
+<!-- Student Name: ANOOP VENKATESH
+Student No: 8750864 -->
+
+

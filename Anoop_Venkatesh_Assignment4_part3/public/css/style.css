@@ -1,0 +1,85 @@
+* {
+  font-family: "Rubik", sans-serif;
+}
+
+p {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+a {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.header-text {
+  background: rgba(0, 43, 94, 0.85);
+  padding: 24px 32px;
+}
+
+.logo-spacing {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#hero {
+  width: 100%;
+  height: 100vh;
+  background: url("http://t.commonsupport.xyz/rochester/images/main-slider/image-2.jpg")
+    top center;
+  background-size: cover;
+  position: relative;
+}
+
+#hero .hero-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 15px;
+}
+
+.btn.test-buttons {
+  font-size: 40px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffea00;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(0, 42, 94);
+}
+
+.btn.test-buttons a {
+  color: #ffea00;
+  text-decoration: none;
+}
+
+.btn.test-buttons a:hover {
+  color: rgb(0, 42, 94);
+  text-decoration: none;
+}
+
+.login-cover {
+  width: 100%;
+  height: 100vh;
+  background: url("https://templates.cms-guide.com/47191/images/slide1.jpg") top
+    center;
+  background-size: cover;
+  position: relative;
+}
+
+#times {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+#times > input {
+  margin-top: 5px;
+}

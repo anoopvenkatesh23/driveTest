@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <%- include('layouts/header') %>
+
+  <body class="d-flex flex-column h-100">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand bg-light logo-spacing" href="/">
+            <img
+              src="./assets/drivetest-main-logo.png"
+              alt=""
+              width="100"
+              height="50"
+            />
+            <!-- https://drivetest.ca/wp-content/themes/drivetest/assets/images/drivetest-main-logo.png' -->
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/"
+                  >Dashboard</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/driver"
+                  >Driver</a
+                >
+              </li>
+              
+              <li class="nav-item d-flex">
+                <a class="nav-link active text-dark" aria-current="page" href="/logout"
+                >Logout</a
+                >
+              </li>
+
+            </ul>
+
+
+          </div>
+        </div>
+      </nav>
+    
+    </header>
+
+
+    <!-- <header><%- include('layouts/navbar') %></header> -->
+
+    <main class="flex-shrink-0 mt-5">
+      <div class="container h-100 login-cover">
+        <div
+          class="row mt-5 py-5 d-flex justify-content-center align-items-center h-100"
+        >
+          <div class="col col-xl-10">
+            <div class="card" style="border-radius: 1rem">
+              <div class="d-flex justify-content-center mt-4 mb-3 pb-1">
+                <span class="h1 fw-bold mb-0">G2Test Details</span>
+              </div>
+              <div>
+
+                <div class="row g-0">
+                  <div class="col-12">
+                    <div class="card-body p-4 p-lg-5 text-black">
+                      <input
+                      type="date"
+                      form="times"
+                      class="form-control"
+                      placeholder="date"
+                      name="date"
+                      id="date"
+                      aria-label="date"
+                      required
+                      onchange="searchAppointment(event)"
+                    />
+                      
+                    <form
+                      id="times"
+                      action="/user/appointment"
+                      method="post"
+                    ></form>
+    
+                    <button
+                      class="btn btn-dark btn-lg btn-block"
+                      type="submit"
+                      form="times"
+                      value="Submit"
+                    >
+                      Book appointment
+                    </button>
+                    </div>
+                  </div>
+                </div>
+
+
+             
+
+                <% if(typeof slotTimes !=='undefined' ) {%>
+                <h2 class="text-danger d-flex justify-content-center">
+                  <% for (var i=0; i< slotTimes.length; i++){ %> <%=
+                  slotTimes[i] %> <% } %>
+                </h2>
+                <%} %> <% if(typeof displayerror !=='undefined' ) {%>
+                <h2 class="text-danger d-flex justify-content-center">
+                  <%= displayerror %>
+                </h2>
+                <%} %> <% if(typeof g2Details !=='undefined' ) {%>
+                <form
+                  action="/storeto/gtest/update"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  <div class="row g-0">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                      <div class="card-body p-4 p-lg-5 text-black">
+                        <div class="form-outline mb-4">
+                          <input type="text" class="form-control"
+                          placeholder="Firstname" name="FName" id="FName"
+                          aria-label="Firstname" value="<%= g2Details.FName %>""
+                          required />
+                        </div>
+                        <div class="form-outline mb-4">
+                          <input type="text" class="form-control"
+                          placeholder="Lastname" name="LName" id="LName"
+                          aria-label="Lastname" value="<%= g2Details.LName %>""
+                          required />
+                        </div>
+                        <div
+                          title=" You can't edit this Field "
+                          class="form-outline mb-4"
+                        >
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="UID (optional)"
+                            name="UID"
+                            id="UID"
+                            aria-label="UID"
+                            disabled="disabled"
+                            required
+                          />
+                        </div>
+                        <div class="form-outline mb-4">
+                          <input type="date" class="form-control"
+                          placeholder="DOB" name="DOB" id="DOB" aria-label="DOB"
+                          value="<%= new Date(g2Details.DOB).toISOString(); %>""
+                          required />
+                        </div>
+
+                        <div class="row">
+                          <div class="col-5 form-outline mb-4">
+                            <input type="text" class="form-control"
+                            placeholder="House number" name="HouseNumber"
+                            id="HouseNumber" aria-label="House number"
+                            value="<%= g2Details.Address.HouseNumber %>"" />
+                          </div>
+                          <div class="col-7 form-outline mb-4">
+                            <input type="text" class="form-control"
+                            placeholder="Street name" name="Street" id="Street"
+                            value="<%= g2Details.Address.Street %>""
+                            aria-label=" Street name" />
+                          </div>
+                        </div>
+
+                        <div class="row form-outline mb-4">
+                          <div class="col-sm-12 col-md-6">
+                            <input type="text" class="form-control"
+                            placeholder="Country name" name="Country"
+                            id="Country" value="<%= g2Details.Address.Country
+                            %>"" aria-label=" Country name" />
+                          </div>
+                          <div class="col-sm-12 col-md-6">
+                            <input type="text" class="form-control"
+                            placeholder="State name" name="State" id="State"
+                            value="<%= g2Details.Address.State %>"" aria-label="
+                            Country name" />
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-outline mb-4">
+                            <input type="text" class="form-control"
+                            placeholder="Postal code" name="Postalcode"
+                            id="Postalcode" value="<%=
+                            g2Details.Address.Postalcode %>"" aria-label="
+                            Postal code" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                      <div class="card-body p-4 p-lg-5 text-black">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-6 form-outline mb-4">
+                            <input type="text" class="form-control"
+                            placeholder="Car make" name="Carmake" id="Carmake"
+                            aria-label="Car make" value="<%=
+                            g2Details.Cardetails.Carmake %>"" />
+                          </div>
+                          <div class="col-sm-12 col-md-6 form-outline mb-4">
+                            <input type="text" class="form-control"
+                            placeholder="Car year" name="Caryear" id="Caryear"
+                            value="<%= g2Details.Cardetails.Caryear %>""
+                            aria-label=" Car year" />
+                          </div>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                          <input type="text" class="form-control"
+                          placeholder="Car Model" name="Carmodel" id="Carmodel"
+                          value="<%= g2Details.Cardetails.Carmodel %>""
+                          aria-label=" Car Model" />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                          <input type="text" class="form-control"
+                          placeholder="Plate number" name="Platenumber"
+                          id="Platenumber" value="<%=
+                          g2Details.Cardetails.Platenumber %>"" aria-label="
+                          Plate number" />
+                        </div>
+                        <div
+                          title="You can't edit this Field"
+                          class="form-outline mb-4"
+                        >
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="License Number"
+                            name="LicenseNumber"
+                            id="LicenseNumber"
+                            aria-label="License Number"
+                            disabled="disabled"
+                            required
+                          />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                          <input type="file" class="form-control"
+                          placeholder="License Number" name="image" id="image"
+                          aria-label="License Number" value="<%= g2Details.image
+                          %>"" multiple />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-center mb-5">
+                    <button
+                      class="btn btn-dark btn-lg btn-block"
+                      type="submit"
+                      value="Submit"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </form>
+                <%} %> <% if(typeof g2Details==='undefined' ) {%>
+                <form
+                  action="/storeto/gtest"
+                  method="POST"
+                  enctype="multipart/form-data"
+                >
+                  <div class="row g-0">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                      <div class="card-body p-4 p-lg-5 text-black">
+                        <div class="form-outline mb-4">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Firstname"
+                            name="FName"
+                            id="FName"
+                            aria-label="Firstname"
+                            required
+                          />
+                        </div>
+                        <div class="form-outline mb-4">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Lastname"
+                            name="LName"
+                            id="LName"
+                            aria-label="Lastname"
+                            required
+                          />
+                        </div>
+                        <div class="form-outline mb-4">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="UID (optional)"
+                            name="UID"
+                            id="UID"
+                            aria-label="UID"
+                            required
+                          />
+                        </div>
+                        <div class="form-outline mb-4">
+                          <input
+                            type="date"
+                            class="form-control"
+                            placeholder="DOB"
+                            name="DOB"
+                            id="DOB"
+                            aria-label="DOB"
+                            required
+                          />
+                        </div>
+
+                        <div class="row">
+                          <div class="col-5 form-outline mb-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="House number"
+                              name="HouseNumber"
+                              id="HouseNumber"
+                              aria-label="House number"
+                            />
+                          </div>
+                          <div class="col-7 form-outline mb-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Street name"
+                              name="Street"
+                              id="Street"
+                              aria-label="Street name"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row form-outline mb-4">
+                          <div class="col-sm-12 col-md-6">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Country name"
+                              name="Country"
+                              id="Country"
+                              aria-label="Country name"
+                            />
+                          </div>
+                          <div class="col-sm-12 col-md-6">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="State name"
+                              name="State"
+                              id="State"
+                              aria-label="Country name"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-outline mb-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Postal code"
+                              name="Postalcode"
+                              id="Postalcode"
+                              aria-label="Postal code"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                      <div class="card-body p-4 p-lg-5 text-black">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-6 form-outline mb-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Car make"
+                              name="Carmake"
+                              id="Carmake"
+                              aria-label="Car make"
+                            />
+                          </div>
+                          <div class="col-sm-12 col-md-6 form-outline mb-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Car year"
+                              name="Caryear"
+                              id="Caryear"
+                              aria-label="Car year"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Car Model"
+                            name="Carmodel"
+                            id="Carmodel"
+                            aria-label="Car Model"
+                          />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Plate number"
+                            name="Platenumber"
+                            id="Platenumber"
+                            aria-label="Plate number"
+                          />
+                        </div>
+                        <div class="form-outline mb-4">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="License Number"
+                            name="LicenseNumber"
+                            id="LicenseNumber"
+                            aria-label="License Number"
+                            required
+                          />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                          <input
+                            type="file"
+                            class="form-control"
+                            placeholder="Image"
+                            name="image"
+                            id="image"
+                            required
+                            aria-label="Image"
+                            multiple
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-center mb-5">
+                    <button
+                      class="btn btn-dark btn-lg btn-block"
+                      type="submit"
+                      value="Submit"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+                <%} %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('layouts/footer')%>
+  </body>
+  <script>
+    const div = document.getElementById("times");
+    async function searchAppointment(event) {
+      div.innerHTML = "";
+      let slotTimes = [];
+      await fetch(`/getslots/g2test/${event.target.value}`, { method: "GET" })
+        .then((res) => res.json())
+        .then((data) => {
+          slotTimes = data;
+          console.log(slotTimes.slotTimes);
+        });
+
+      console.log(slotTimes.slotTimes, "slots");
+
+      slotTimes.slotTimes.forEach((time) => {
+        const input = document.createElement("input");
+        const label = document.createElement("label");
+        const br = document.createElement("br");
+        label.for = `${time.time}`;
+        label.innerHTML = `${time.time}`;
+        input.type = "radio";
+        input.id = `${time.time}`;
+        input.value = time.time;
+        input.name = "time";
+        if (!time.isTimeSlotAvailable) {
+          input.disabled = true;
+        }
+        div.appendChild(input);
+        div.appendChild(label);
+        div.appendChild(br);
+      });
+    }
+  </script>
+</html>
+
+<!-- Student Name: ANOOP VENKATESH
+Student No: 8750864 -->
